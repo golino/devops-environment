@@ -1,0 +1,22 @@
+services:
+  database:
+    container_name: postgres
+    image: postgres:15.3
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
+    secrets:
+      - pg_secrets
+    ports:
+      - 5432:5432
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 256M
+volumes:
+  pgdata:
+secrets:
+  pg_secrets:
+    file: pg_secrets.txt
